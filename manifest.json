@@ -1,0 +1,72 @@
+{
+  "manifest_version": 3,
+  "name": "King Translator AI (Chrome Extension)",
+  "version": "1.0",
+  "description": "Translate everything with the power of leading AI providers, right in your browser!",
+  "permissions": [
+    "sidePanel",
+    "scripting",
+    "storage",
+    "contextMenus",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://*.generativelanguage.googleapis.com/",
+    "https://api.perplexity.ai/",
+    "https://api.anthropic.com/",
+    "https://api.openai.com/",
+    "https://api.mistral.ai/",
+    "https://raw.githubusercontent.com/",
+    "https://translate.googleapis.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://translate.google.com/",
+    "https://texttospeech.googleapis.com/",
+    "https://github.com/",
+    "https://fonts.googleapis.com/"
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "lib/lz-string.js",
+        "js/config.js",
+        "js/persistent_cache.js",
+        "js/api_manager.js",
+        "js/file_uploader.js",
+        "js/file_manager.js",
+        "js/ocr.js",
+        "js/media_manager.js",
+        "js/video_streaming.js",
+        "js/page_translator.js",
+        "js/input_translator.js",
+        "js/ui_manager.js",
+        "js/translator.js",
+        "js/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icon/*.png",
+        "icon/*.jpg"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "icons": {
+    "128": "icon/kings.jpg"
+  },
+  "action": {
+    "default_title": "King Translator AI"
+  }
+}

@@ -1,6 +1,3 @@
-<p align="right">
-  <b>English</b> | <a href="./docs/vi/">Tiếng Việt</a>
-</p>
 
 # King Translator AI - The All-in-One AI Translation Tool 🔥
 
@@ -26,7 +23,6 @@
 - [Hotkeys & Gestures](#-hotkeys--gestures)
 - [Support & Contribution](#-support--contribution)
 - [License](#-license)
-- [Vietnamese Guide](README_vi.md)
 
 ## 🚀 What's New in Version 5.0?
 
