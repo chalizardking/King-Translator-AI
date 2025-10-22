@@ -3738,9 +3738,9 @@ ${this.createProviderRadios(settings)}
             ...(savedSettings?.apiKey?.claude ||
               DEFAULT_SETTINGS.apiKey.claude)
           ],
-          openai: [
-            ...(savedSettings?.apiKey?.openai ||
-              DEFAULT_SETTINGS.apiKey.openai)
+          openrouter: [
+            ...(savedSettings?.apiKey?.openrouter ||
+              DEFAULT_SETTINGS.apiKey.openrouter)
           ],
           mistral: [
             ...(savedSettings?.apiKey?.mistral ||
