@@ -2480,12 +2480,12 @@
 ${this.createProviderRadios(settings)}
 <div style="margin-bottom: 15px;">
   <h3>API MODEL</h3>
-  ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama']
+  ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama']
           .map(p => this.createModelSection(p, settings)).join('')}
 </div>
 <div style="margin-bottom: 15px;">
   <h3>API KEYS</h3>
-  ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek']
+  ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek']
           .map(p => this.createApiKeySection(p, settings)).join('')}
 </div>
 `;
@@ -2903,11 +2903,11 @@ ${this.createProviderRadios(settings)}
         ${this.createProviderRadios(this.settings)}
         <h3>API MODEL</h3>
         <div class="api-model-settings">
-          ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama'].map(p => this.createModelSection(p, this.settings)).join('')}
+          ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama'].map(p => this.createModelSection(p, this.settings)).join('')}
         </div>
         <h3>API KEYS</h3>
         <div class="api-keys-settings">
-          ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek'].map(p => this.createApiKeySection(p, this.settings)).join('')}
+          ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek'].map(p => this.createApiKeySection(p, this.settings)).join('')}
         </div>
       `;
       container.querySelector('#section-input .section-content-wrapper').innerHTML = `
@@ -3440,7 +3440,7 @@ ${this.createProviderRadios(settings)}
       if (sidebarLinks.length > 0) {
         sidebarLinks[0].click();
       }
-      const providers = ['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama'];
+      const providers = ['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama'];
       container.querySelectorAll('input[name="apiProvider"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
           const provider = e.target.value;
@@ -3467,7 +3467,7 @@ ${this.createProviderRadios(settings)}
           });
         }
       });
-      ['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek'].forEach(provider => {
+      ['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek'].forEach(provider => {
         const addButton = container.querySelector(`#add-${provider}-key`);
         if (!addButton) return;
         const keyContainer = container.querySelector(`#${provider}Keys .api-keys-container`);
