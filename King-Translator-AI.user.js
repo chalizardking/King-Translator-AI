@@ -4578,7 +4578,7 @@ ${this.createProviderRadios(settings)}
           };
         case 'perplexity':
         case 'claude':
-        case 'openai':
+        case 'openrouter':
         case 'mistral':
         case 'deepseek':
           const model = this.getModel();
