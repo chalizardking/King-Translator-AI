@@ -2338,7 +2338,7 @@
         ['gemini', 'Gemini'],
         ['perplexity', 'Perplexity'],
         ['claude', 'Claude'],
-        ['openai', 'OpenAI'],
+        ['openrouter', 'OpenRouter'],
         ['mistral', 'Mistral'],
         ['deepseek', 'Deepseek'],
         ['ollama', 'Ollama']
