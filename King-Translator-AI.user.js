@@ -230,7 +230,7 @@
           models: {
             fast: ["openai/gpt-4o-mini", "openai/gpt-4-turbo", "openai/gpt-3.5-turbo"],
             balance: ["openai/gpt-4o", "openai/gpt-4-turbo"],
-            pro: ["o1-pro"]
+            pro: ["openai/o1", "openai/gpt-4"]
           },
           headers: (apiKey) => ({
             "Content-Type": "application/json",
