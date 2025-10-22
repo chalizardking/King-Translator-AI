@@ -1964,9 +1964,9 @@
     },
     openrouterOptions: {
       modelType: "fast", // 'fast', 'balance', 'pro', 'custom'
-      fastModel: "gpt-4.1-nano",
-      balanceModel: "gpt-4.1",
-      proModel: "o1-pro",
+      fastModel: "openai/gpt-4o-mini",
+      balanceModel: "openai/gpt-4o",
+      proModel: "openai/o1",
       customModel: ""
     },
     mistralOptions: {
