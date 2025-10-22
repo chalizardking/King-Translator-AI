@@ -3841,7 +3841,7 @@ ${this.createProviderRadios(settings)}
       const claudeKeys = Array.from(settingsUI.querySelectorAll(".claude-key"))
         .map((input) => input.value.trim())
         .filter((key) => key !== "");
-      const openaiKeys = Array.from(settingsUI.querySelectorAll(".openai-key"))
+      const openaiKeys = Array.from(settingsUI.querySelectorAll(".openrouter-key"))
         .map((input) => input.value.trim())
         .filter((key) => key !== "");
       const mistralKeys = Array.from(settingsUI.querySelectorAll(".mistral-key"))
@@ -3930,11 +3930,11 @@ ${this.createProviderRadios(settings)}
           customModel: settingsUI.querySelector('#claude-custom-model')?.value
         },
         openrouterOptions: {
-          modelType: settingsUI.querySelector('#openaiModelType')?.value,
-          fastModel: settingsUI.querySelector('#openai-fast-model')?.value,
-          balanceModel: settingsUI.querySelector('#openai-balance-model')?.value,
-          proModel: settingsUI.querySelector('#openai-pro-model')?.value,
-          customModel: settingsUI.querySelector('#openai-custom-model')?.value
+          modelType: settingsUI.querySelector('#openrouterModelType')?.value,
+          fastModel: settingsUI.querySelector('#openrouter-fast-model')?.value,
+          balanceModel: settingsUI.querySelector('#openrouter-balance-model')?.value,
+          proModel: settingsUI.querySelector('#openrouter-pro-model')?.value,
+          customModel: settingsUI.querySelector('#openrouter-custom-model')?.value
         },
         mistralOptions: {
           modelType: settingsUI.querySelector('#mistralModelType')?.value,
