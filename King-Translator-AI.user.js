@@ -25,6 +25,7 @@
 // @connect       api.perplexity.ai
 // @connect       api.anthropic.com
 // @connect       api.openai.com
+// @connect       openrouter.ai
 // @connect       api.mistral.ai
 // @connect       api.deepseek.com
 // @connect       raw.githubusercontent.com
