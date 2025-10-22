@@ -238,7 +238,7 @@
           }),
           createRequestBody: (content, model = "openai/gpt-4o-mini", tem = 1, topp = 0.95) => ({
             model: model,
-            input: [{
+            messages: [{
               role: "user",
               content: content
             }],
