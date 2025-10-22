@@ -236,7 +236,7 @@
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apiKey}`
           }),
-          createRequestBody: (content, model = "gpt-4.1-nano", tem = 1, topp = 0.95) => ({
+          createRequestBody: (content, model = "openai/gpt-4o-mini", tem = 1, topp = 0.95) => ({
             model: model,
             input: [{
               role: "user",
