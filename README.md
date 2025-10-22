@@ -157,7 +157,7 @@ You need a userscript manager. **Violentmonkey** is highly recommended.
 ### Step 3: Get & Configure API Keys
 1. **Get API Keys:**
    - **Gemini (Recommended):** Go to [Google AI Studio](https://makersuite.google.com/app/apikey) -> `Create API Key`.
-   - For other providers, visit their respective websites to obtain an API key (Claude, OpenAI, Perplexity, Mistral).
+   - For other providers, visit their respective websites to obtain an API key (Claude, OpenRouter, Perplexity, Mistral).
 2. **Configure the Script:**
    - Open the script settings:
       - Hotkey `Alt + S` (Windows, Linux, Android)
