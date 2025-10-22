@@ -246,7 +246,6 @@
             top_p: topp
           }),
           createBinaryParts: (prompt, mimeType, base64Data) => [
-          createBinaryParts: (prompt, mimeType, base64Data) => [
             {
               type: "text",
               text: prompt
@@ -266,9 +265,6 @@
               return response.choices[0].message.content;
             }
             throw new Error("Invalid response format from OpenRouter API");
-          }
-            }
-            throw new Error("Invalid response format from OpenAI API");
           }
         },
         mistral: {
