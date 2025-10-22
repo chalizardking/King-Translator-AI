@@ -3695,6 +3695,31 @@ ${this.createProviderRadios(settings)}
     }
     mergeWithDefaults(savedSettings) {
       return {
+      // Backward compatibility: migrate old openai settings to openrouter
+      if (savedSettings?.apiKey?.openai && !savedSettings?.apiKey?.openrouter) {
+        if (!savedSettings.apiKey) savedSettings.apiKey = {};
+        savedSettings.apiKey.openrouter = savedSettings.apiKey.openai;
+        delete savedSettings.apiKey.openai;
+      }
+      if (savedSettings?.currentKeyIndex?.openai !== undefined && savedSettings?.currentKeyIndex?.openrouter === undefined) {
+        if (!savedSettings.currentKeyIndex) savedSettings.currentKeyIndex = {};
+        savedSettings.currentKeyIndex.openrouter = savedSettings.currentKeyIndex.openai;
+        delete savedSettings.currentKeyIndex.openai;
+      }
+      if (savedSettings?.openaiOptions && !savedSettings?.openrouterOptions) {
+        savedSettings.openrouterOptions = savedSettings.openaiOptions;
+        // Migrate model names to include openai/ prefix if missing
+        ['fastModel', 'balanceModel', 'proModel', 'customModel'].forEach(key => {
+          if (savedSettings.openrouterOptions[key] && !savedSettings.openrouterOptions[key].includes('/')) {
+            savedSettings.openrouterOptions[key] = 'openai/' + savedSettings.openrouterOptions[key];
+          }
+        });
+        delete savedSettings.openaiOptions;
+      }
+      if (savedSettings?.apiProvider === 'openai') {
+        savedSettings.apiProvider = 'openrouter';
+      }
+
         ...DEFAULT_SETTINGS,
         ...savedSettings,
         geminiOptions: {
