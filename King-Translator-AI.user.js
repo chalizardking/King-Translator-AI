@@ -1962,7 +1962,7 @@
       proModel: "claude-3-opus-latest",
       customModel: ""
     },
-    openaiOptions: {
+    openrouterOptions: {
       modelType: "fast", // 'fast', 'balance', 'pro', 'custom'
       fastModel: "gpt-4.1-nano",
       balanceModel: "gpt-4.1",
@@ -3709,9 +3709,9 @@ ${this.createProviderRadios(settings)}
           ...DEFAULT_SETTINGS.claudeOptions,
           ...(savedSettings?.claudeOptions || {})
         },
-        openaiOptions: {
-          ...DEFAULT_SETTINGS.openaiOptions,
-          ...(savedSettings?.openaiOptions || {})
+        openrouterOptions: {
+          ...DEFAULT_SETTINGS.openrouterOptions,
+          ...(savedSettings?.openrouterOptions || {})
         },
         mistralOptions: {
           ...DEFAULT_SETTINGS.mistralOptions,
@@ -3929,7 +3929,7 @@ ${this.createProviderRadios(settings)}
           proModel: settingsUI.querySelector('#claude-pro-model')?.value,
           customModel: settingsUI.querySelector('#claude-custom-model')?.value
         },
-        openaiOptions: {
+        openrouterOptions: {
           modelType: settingsUI.querySelector('#openaiModelType')?.value,
           fastModel: settingsUI.querySelector('#openai-fast-model')?.value,
           balanceModel: settingsUI.querySelector('#openai-balance-model')?.value,
