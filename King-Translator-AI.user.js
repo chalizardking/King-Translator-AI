@@ -3694,7 +3694,6 @@ ${this.createProviderRadios(settings)}
         : DEFAULT_SETTINGS;
     }
     mergeWithDefaults(savedSettings) {
-      return {
       // Backward compatibility: migrate old openai settings to openrouter
       if (savedSettings?.apiKey?.openai && !savedSettings?.apiKey?.openrouter) {
         if (!savedSettings.apiKey) savedSettings.apiKey = {};
@@ -3720,6 +3719,7 @@ ${this.createProviderRadios(settings)}
         savedSettings.apiProvider = 'openrouter';
       }
 
+      return {
         ...DEFAULT_SETTINGS,
         ...savedSettings,
         geminiOptions: {
