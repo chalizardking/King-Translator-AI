@@ -228,8 +228,8 @@
         openrouter: {
           baseUrl: "https://openrouter.ai/api/v1/chat/completions",
           models: {
-            fast: ["gpt-4.1-nano", "gpt-4.1-mini", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"],
-            balance: ["gpt-4.1", "gpt-4o"],
+            fast: ["openai/gpt-4o-mini", "openai/gpt-4-turbo", "openai/gpt-3.5-turbo"],
+            balance: ["openai/gpt-4o", "openai/gpt-4-turbo"],
             pro: ["o1-pro"]
           },
           headers: (apiKey) => ({
