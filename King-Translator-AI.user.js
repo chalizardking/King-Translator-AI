@@ -2467,7 +2467,7 @@
       return [...baseTypes, 'custom'];
     }
     capitalize(str) {
-      if (str === "openai") return "OpenAI";
+      if (str === "openrouter") return "OpenRouter";
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
     chunk(arr, size) {
