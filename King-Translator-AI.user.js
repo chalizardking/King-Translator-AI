@@ -246,14 +246,18 @@
             top_p: topp
           }),
           createBinaryParts: (prompt, mimeType, base64Data) => [
+          createBinaryParts: (prompt, mimeType, base64Data) => [
             {
-              type: "input_text",
+              type: "text",
               text: prompt
             },
             {
-              type: "input_image",
-              image_url: `data:${mimeType};base64,${base64Data}`
+              type: "image_url",
+              image_url: {
+                url: `data:${mimeType};base64,${base64Data}`
+              }
             }
+          ],
           ],
           responseParser: (response) => {
             if (typeof response === "string") {
