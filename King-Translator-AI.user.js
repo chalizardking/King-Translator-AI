@@ -255,6 +255,9 @@
               type: "image_url",
               image_url: {
                 url: `data:${mimeType};base64,${base64Data}`
+              }
+            }
+          ],
           responseParser: (response) => {
             if (typeof response === "string") {
               return response;
@@ -264,7 +267,6 @@
             }
             throw new Error("Invalid response format from OpenRouter API");
           }
-              return response.output[0].content[0].text;
             }
             throw new Error("Invalid response format from OpenAI API");
           }
