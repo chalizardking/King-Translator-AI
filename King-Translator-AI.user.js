@@ -416,7 +416,7 @@
         gemini: [""],
         perplexity: [""],
         claude: [""],
-        openai: [""],
+        openrouter: [""],
         mistral: [""],
         deepseek: [""]
       },
@@ -424,7 +424,7 @@
         gemini: 0,
         perplexity: 0,
         claude: 0,
-        openai: 0,
+        openrouter: 0,
         mistral: 0,
         deepseek: 0
       },
@@ -1929,7 +1929,7 @@
       gemini: [""],
       perplexity: [""],
       claude: [""],
-      openai: [""],
+      openrouter: [""],
       mistral: [""],
       deepseek: [""]
     },
@@ -1937,7 +1937,7 @@
       gemini: 0,
       perplexity: 0,
       claude: 0,
-      openai: 0,
+      openrouter: 0,
       mistral: 0,
       deepseek: 0
     },
@@ -3904,7 +3904,7 @@ ${this.createProviderRadios(settings)}
           gemini: 0,
           perplexity: 0,
           claude: 0,
-          openai: 0,
+          openrouter: 0,
           mistral: 0,
           deepseek: 0
         },
