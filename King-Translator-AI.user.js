@@ -25,6 +25,7 @@
 // @connect       api.perplexity.ai
 // @connect       api.anthropic.com
 // @connect       api.openai.com
+// @connect       openrouter.ai
 // @connect       api.mistral.ai
 // @connect       api.deepseek.com
 // @connect       raw.githubusercontent.com
@@ -224,20 +225,20 @@
             throw new Error("Invalid response format from Claude API");
           }
         },
-        openai: {
-          baseUrl: "https://api.openai.com/v1/responses",
+        openrouter: {
+          baseUrl: "https://openrouter.ai/api/v1/chat/completions",
           models: {
-            fast: ["gpt-4.1-nano", "gpt-4.1-mini", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"],
-            balance: ["gpt-4.1", "gpt-4o"],
-            pro: ["o1-pro"]
+            fast: ["openai/gpt-4o-mini", "openai/gpt-4-turbo", "openai/gpt-3.5-turbo"],
+            balance: ["openai/gpt-4o", "openai/gpt-4-turbo"],
+            pro: ["openai/o1", "openai/gpt-4"]
           },
           headers: (apiKey) => ({
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apiKey}`
           }),
-          createRequestBody: (content, model = "gpt-4.1-nano", tem = 1, topp = 0.95) => ({
+          createRequestBody: (content, model = "openai/gpt-4o-mini", tem = 1, topp = 0.95) => ({
             model: model,
-            input: [{
+            messages: [{
               role: "user",
               content: content
             }],
@@ -246,22 +247,24 @@
           }),
           createBinaryParts: (prompt, mimeType, base64Data) => [
             {
-              type: "input_text",
+              type: "text",
               text: prompt
             },
             {
-              type: "input_image",
-              image_url: `data:${mimeType};base64,${base64Data}`
+              type: "image_url",
+              image_url: {
+                url: `data:${mimeType};base64,${base64Data}`
+              }
             }
           ],
           responseParser: (response) => {
             if (typeof response === "string") {
               return response;
             }
-            if (response?.output?.[0]?.content?.[0]?.text) {
-              return response.output[0].content[0].text;
+            if (response?.choices?.[0]?.message?.content) {
+              return response.choices[0].message.content;
             }
-            throw new Error("Invalid response format from OpenAI API");
+            throw new Error("Invalid response format from OpenRouter API");
           }
         },
         mistral: {
@@ -413,7 +416,7 @@
         gemini: [""],
         perplexity: [""],
         claude: [""],
-        openai: [""],
+        openrouter: [""],
         mistral: [""],
         deepseek: [""]
       },
@@ -421,7 +424,7 @@
         gemini: 0,
         perplexity: 0,
         claude: 0,
-        openai: 0,
+        openrouter: 0,
         mistral: 0,
         deepseek: 0
       },
@@ -1926,7 +1929,7 @@
       gemini: [""],
       perplexity: [""],
       claude: [""],
-      openai: [""],
+      openrouter: [""],
       mistral: [""],
       deepseek: [""]
     },
@@ -1934,7 +1937,7 @@
       gemini: 0,
       perplexity: 0,
       claude: 0,
-      openai: 0,
+      openrouter: 0,
       mistral: 0,
       deepseek: 0
     },
@@ -1959,11 +1962,11 @@
       proModel: "claude-3-opus-latest",
       customModel: ""
     },
-    openaiOptions: {
+    openrouterOptions: {
       modelType: "fast", // 'fast', 'balance', 'pro', 'custom'
-      fastModel: "gpt-4.1-nano",
-      balanceModel: "gpt-4.1",
-      proModel: "o1-pro",
+      fastModel: "openai/gpt-4o-mini",
+      balanceModel: "openai/gpt-4o",
+      proModel: "openai/o1",
       customModel: ""
     },
     mistralOptions: {
@@ -2335,7 +2338,7 @@
         ['gemini', 'Gemini'],
         ['perplexity', 'Perplexity'],
         ['claude', 'Claude'],
-        ['openai', 'OpenAI'],
+        ['openrouter', 'OpenRouter'],
         ['mistral', 'Mistral'],
         ['deepseek', 'Deepseek'],
         ['ollama', 'Ollama']
@@ -2464,7 +2467,7 @@
       return [...baseTypes, 'custom'];
     }
     capitalize(str) {
-      if (str === "openai") return "OpenAI";
+      if (str === "openrouter") return "OpenRouter";
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
     chunk(arr, size) {
@@ -2477,12 +2480,12 @@
 ${this.createProviderRadios(settings)}
 <div style="margin-bottom: 15px;">
   <h3>API MODEL</h3>
-  ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama']
+  ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama']
           .map(p => this.createModelSection(p, settings)).join('')}
 </div>
 <div style="margin-bottom: 15px;">
   <h3>API KEYS</h3>
-  ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek']
+  ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek']
           .map(p => this.createApiKeySection(p, settings)).join('')}
 </div>
 `;
@@ -2900,11 +2903,11 @@ ${this.createProviderRadios(settings)}
         ${this.createProviderRadios(this.settings)}
         <h3>API MODEL</h3>
         <div class="api-model-settings">
-          ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama'].map(p => this.createModelSection(p, this.settings)).join('')}
+          ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama'].map(p => this.createModelSection(p, this.settings)).join('')}
         </div>
         <h3>API KEYS</h3>
         <div class="api-keys-settings">
-          ${['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek'].map(p => this.createApiKeySection(p, this.settings)).join('')}
+          ${['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek'].map(p => this.createApiKeySection(p, this.settings)).join('')}
         </div>
       `;
       container.querySelector('#section-input .section-content-wrapper').innerHTML = `
@@ -3437,7 +3440,7 @@ ${this.createProviderRadios(settings)}
       if (sidebarLinks.length > 0) {
         sidebarLinks[0].click();
       }
-      const providers = ['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek', 'ollama'];
+      const providers = ['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek', 'ollama'];
       container.querySelectorAll('input[name="apiProvider"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
           const provider = e.target.value;
@@ -3464,7 +3467,7 @@ ${this.createProviderRadios(settings)}
           });
         }
       });
-      ['gemini', 'perplexity', 'claude', 'openai', 'mistral', 'deepseek'].forEach(provider => {
+      ['gemini', 'perplexity', 'claude', 'openrouter', 'mistral', 'deepseek'].forEach(provider => {
         const addButton = container.querySelector(`#add-${provider}-key`);
         if (!addButton) return;
         const keyContainer = container.querySelector(`#${provider}Keys .api-keys-container`);
@@ -3691,6 +3694,31 @@ ${this.createProviderRadios(settings)}
         : DEFAULT_SETTINGS;
     }
     mergeWithDefaults(savedSettings) {
+      // Backward compatibility: migrate old openai settings to openrouter
+      if (savedSettings?.apiKey?.openai && !savedSettings?.apiKey?.openrouter) {
+        if (!savedSettings.apiKey) savedSettings.apiKey = {};
+        savedSettings.apiKey.openrouter = savedSettings.apiKey.openai;
+        delete savedSettings.apiKey.openai;
+      }
+      if (savedSettings?.currentKeyIndex?.openai !== undefined && savedSettings?.currentKeyIndex?.openrouter === undefined) {
+        if (!savedSettings.currentKeyIndex) savedSettings.currentKeyIndex = {};
+        savedSettings.currentKeyIndex.openrouter = savedSettings.currentKeyIndex.openai;
+        delete savedSettings.currentKeyIndex.openai;
+      }
+      if (savedSettings?.openaiOptions && !savedSettings?.openrouterOptions) {
+        savedSettings.openrouterOptions = savedSettings.openaiOptions;
+        // Migrate model names to include openai/ prefix if missing
+        ['fastModel', 'balanceModel', 'proModel', 'customModel'].forEach(key => {
+          if (savedSettings.openrouterOptions[key] && !savedSettings.openrouterOptions[key].includes('/')) {
+            savedSettings.openrouterOptions[key] = 'openai/' + savedSettings.openrouterOptions[key];
+          }
+        });
+        delete savedSettings.openaiOptions;
+      }
+      if (savedSettings?.apiProvider === 'openai') {
+        savedSettings.apiProvider = 'openrouter';
+      }
+
       return {
         ...DEFAULT_SETTINGS,
         ...savedSettings,
@@ -3706,9 +3734,9 @@ ${this.createProviderRadios(settings)}
           ...DEFAULT_SETTINGS.claudeOptions,
           ...(savedSettings?.claudeOptions || {})
         },
-        openaiOptions: {
-          ...DEFAULT_SETTINGS.openaiOptions,
-          ...(savedSettings?.openaiOptions || {})
+        openrouterOptions: {
+          ...DEFAULT_SETTINGS.openrouterOptions,
+          ...(savedSettings?.openrouterOptions || {})
         },
         mistralOptions: {
           ...DEFAULT_SETTINGS.mistralOptions,
@@ -3735,9 +3763,9 @@ ${this.createProviderRadios(settings)}
             ...(savedSettings?.apiKey?.claude ||
               DEFAULT_SETTINGS.apiKey.claude)
           ],
-          openai: [
-            ...(savedSettings?.apiKey?.openai ||
-              DEFAULT_SETTINGS.apiKey.openai)
+          openrouter: [
+            ...(savedSettings?.apiKey?.openrouter ||
+              DEFAULT_SETTINGS.apiKey.openrouter)
           ],
           mistral: [
             ...(savedSettings?.apiKey?.mistral ||
@@ -3838,7 +3866,7 @@ ${this.createProviderRadios(settings)}
       const claudeKeys = Array.from(settingsUI.querySelectorAll(".claude-key"))
         .map((input) => input.value.trim())
         .filter((key) => key !== "");
-      const openaiKeys = Array.from(settingsUI.querySelectorAll(".openai-key"))
+      const openaiKeys = Array.from(settingsUI.querySelectorAll(".openrouter-key"))
         .map((input) => input.value.trim())
         .filter((key) => key !== "");
       const mistralKeys = Array.from(settingsUI.querySelectorAll(".mistral-key"))
@@ -3901,7 +3929,7 @@ ${this.createProviderRadios(settings)}
           gemini: 0,
           perplexity: 0,
           claude: 0,
-          openai: 0,
+          openrouter: 0,
           mistral: 0,
           deepseek: 0
         },
@@ -3926,12 +3954,12 @@ ${this.createProviderRadios(settings)}
           proModel: settingsUI.querySelector('#claude-pro-model')?.value,
           customModel: settingsUI.querySelector('#claude-custom-model')?.value
         },
-        openaiOptions: {
-          modelType: settingsUI.querySelector('#openaiModelType')?.value,
-          fastModel: settingsUI.querySelector('#openai-fast-model')?.value,
-          balanceModel: settingsUI.querySelector('#openai-balance-model')?.value,
-          proModel: settingsUI.querySelector('#openai-pro-model')?.value,
-          customModel: settingsUI.querySelector('#openai-custom-model')?.value
+        openrouterOptions: {
+          modelType: settingsUI.querySelector('#openrouterModelType')?.value,
+          fastModel: settingsUI.querySelector('#openrouter-fast-model')?.value,
+          balanceModel: settingsUI.querySelector('#openrouter-balance-model')?.value,
+          proModel: settingsUI.querySelector('#openrouter-pro-model')?.value,
+          customModel: settingsUI.querySelector('#openrouter-custom-model')?.value
         },
         mistralOptions: {
           modelType: settingsUI.querySelector('#mistralModelType')?.value,
@@ -4550,7 +4578,7 @@ ${this.createProviderRadios(settings)}
           };
         case 'perplexity':
         case 'claude':
-        case 'openai':
+        case 'openrouter':
         case 'mistral':
         case 'deepseek':
           const model = this.getModel();
